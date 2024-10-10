@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToxyDev</title>
+    <style>
+        body {
+            background-image: url('https://cdn.discordapp.com/attachments/1293952615779930123/1294011072294162462/2a0acffb5046637f.webp?ex=67097539&is=670823b9&hm=3ddd26e11454494b05c2d4425dd91589be21657c64721c1f91541834e082832b&');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            font-size: 48px;
+            margin: 20px;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+        }
+        p {
+            font-size: 40px;
+            color: black;
+            margin: 10px;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+        }
+        .discord-link {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+        }
+        .discord-link img {
+            width: 100px;
+            height: auto;
+        }
+        .portfolio {
+            margin-top: 60px; /* מרווח למעלה */
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden; /* מוסיף כדי להסתיר את התמונות מחוץ למסגרת */
+        }
+        .portfolio h2 {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 2px solid white; /* קו למטה */
+            padding-bottom: 10px; /* מרווח בין הכותרת לקו */
+            margin-bottom: 20px; /* מרווח מתחת לכותרת */
+            font-family: 'Arial', sans-serif; /* אפשר לשנות לפונט אחר */
+        }
+        .portfolio-images {
+            display: flex;
+            transition: transform 0.5s ease; /* אנימציה חלקה */
+        }
+        .portfolio-images img {
+            min-width: 100%; /* כל תמונה תופסת את כל הרוחב */
+            height: auto; /* שומר על יחס התמונה */
+        }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1; /* מבטיח שהחצים יהיו מעל התמונות */
+        }
+        .arrow-left {
+            left: 10px;
+        }
+        .arrow-right {
+            right: 10px;
+        }
+        .additional-content {
+            margin-top: 100px; /* מרווח מלמעלה לתוכן נוסף */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1); /* רקע קליל לתוכן */
+            color: white;
+            width: 80%;
+            max-width: 800px;
+            height: 200vh; /* גובה גדול כדי לאפשר גלילה */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>ברוך הבא לאתר של ToxyDev</h1>
+    <p>שלום, הגעתם לאתר שלי מוזמנים להתרשם</p>
+    <div class="discord-link">
+        <a href="https://discord.gg/U5XGa3d3" target="_blank">
+            <img src="https://www.geekloid.co.il/wp-content/uploads/2021/03/discord.jpg" alt="Discord">
+            <p>לשרת הדיסקורד של טוקסי, לחץ עליי</p>
+        </a>
+    </div>
+
+    <!-- תיק עבודות -->
+    <div class="portfolio">
+        <h2>תיק עבודות</h2> <!-- הוספת הכותרת כאן -->
+        <button class="arrow arrow-left" onclick="moveSlide(-1)">&#10094;</button>
+        <div class="portfolio-images" id="portfolioImages">
+            <img src="https://cdn.discordapp.com/attachments/1263149346581516338/1294012922518966415/image.png?ex=670976f2&is=67082572&hm=1bbc1bac0a4b2b8369c9834842ffef3f91a0ab09c4dfc1e0e7e5a5713fb18f95&" alt="תמונה 1">
+            <img src="https://cdn.discordapp.com/attachments/1263149346581516338/1294013000314785833/image.png?ex=67097704&is=67082584&hm=aa344adc9a383c36231c03a4e27205a8a8e96bbd942e275886c532b34858d6c3&" alt="תמונה 2">
+        </div>
+        <button class="arrow arrow-right" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+
+    <!-- תוכן נוסף כדי לאפשר גלילה -->
+    <div class="additional-content">
+        <h2>תוכן נוסף</h2>
+        <p>הנה עוד מידע על האתר שלי.</p>
+        <p>תוכן זה נועד להדגיש את האפשרות לגלול למטה.</p>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+
+        function moveSlide(direction) {
+            const slides = document.querySelectorAll('.portfolio-images img');
+            const totalSlides = slides.length;
+            currentIndex += direction;
+
+            if (currentIndex < 0) {
+                currentIndex = totalSlides - 1; // לחזור לתמונה האחרונה
+            } else if (currentIndex >= totalSlides) {
+                currentIndex = 0; // לחזור לתמונה הראשונה
+            }
+
+            const offset = -currentIndex * 100; // חישוב ההזזה
+            document.getElementById('portfolioImages').style.transform = `translateX(${offset}%)`;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f0f0f0;
+        color: #333;
+    }
+    h1 {
+        color: #4CAF50;
+    }
+    a {
+        color: #1E90FF;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
